@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { searchBookTitle } from "../../API/libraryApi";
+import useDebounce from "../../hooks/useDebounce";
+import { TitleSearchTypes } from "../../types/titleType";
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [books, setBooks] = useState<TitleSearchTypes>();
+  const debouncedSearchTerm: string = useDebounce(searchTerm, 1000);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     console.log(searchTerm);
   };
   useEffect(() => {
-    if (searchTerm) {
-      const fixedSearch: string = searchTerm.replace(/ /g, "+");
+    if (debouncedSearchTerm) {
+      const fixedSearch: string = debouncedSearchTerm.replace(/ /g, "+");
       console.log(fixedSearch);
       try {
         const fetchData = async () => {
           const response = await searchBookTitle(fixedSearch);
-          console.log(response);
+          if (response) {
+            setBooks(response);
+          }
         };
         fetchData();
       } catch (e) {
         console.error(e);
       }
     }
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
   return (
     <>
       <div className="searchContainer">
@@ -32,6 +38,10 @@ const Searchbar = () => {
           value={searchTerm}
           onChange={handleChange}
         />
+        <ul>
+          {books &&
+            books.docs.map((book, index) => <li key={index}>{book.title}</li>)}
+        </ul>
       </div>
     </>
   );
