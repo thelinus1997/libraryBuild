@@ -1,13 +1,18 @@
 import { searchAuthor, searchBookTitle } from "../API/libraryApi";
 import { setSearchResult } from "../Slices/searchSlice";
 
-export const useSearch = async (searchTerm: string, searchType: string) => {
+export const useSearch = async (
+  searchTerm: string,
+  searchType: string,
+  dispatch: any
+) => {
   const fixedSearchTerm = searchTerm.replace(/ /g, "+");
   if (searchType === "title") {
     const response = await searchBookTitle(fixedSearchTerm);
-    setSearchResult({ type: searchType, title: response });
+    console.log(response);
+    dispatch(setSearchResult({ type: searchType, title: response.docs }));
   } else if (searchType === "author") {
     const response = await searchAuthor(fixedSearchTerm);
-    setSearchResult({ type: searchType, author: response });
+    dispatch(setSearchResult({ type: searchType, author: response.docs }));
   }
 };

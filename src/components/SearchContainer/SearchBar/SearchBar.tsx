@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSearch } from "../../hooks/useSearch";
-import { TitleSearchTypes } from "../../types/titleType";
-const Searchbar = () => {
+import { useSearch } from "../../../hooks/useSearch";
+import { TitleSearchTypes } from "../../../types/titleType";
+import { useDispatch } from "react-redux";
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("title");
-  const [menuVis, setmenuVis] = useState(false);
-  const [books, setBooks] = useState<TitleSearchTypes>();
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     console.log(searchTerm);
   };
   const handleClick = async () => {
-    useSearch(searchTerm, searchType);
+    await useSearch(searchTerm, searchType, dispatch);
   };
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
@@ -42,4 +42,4 @@ const Searchbar = () => {
   );
 };
 
-export default Searchbar;
+export default SearchBar;

@@ -4,11 +4,12 @@ import viteLogo from "/vite.svg";
 import "./App.scss";
 import Home from "./components/Home/Home";
 import { Link, Route, Routes } from "react-router-dom";
-import Searchbar from "./components/SearchBar/SearchBar";
+import Searchbar from "./components/SearchContainer/SearchBar/SearchBar";
 import FavoriteBooks from "./components/FavoriteBooks/FavoriteBooks";
 import FavoriteAuthors from "./components/FavoriteAuthors/FavoriteAuthors";
 import ByGenre from "./components/Home/RecommendationContainer/ByGenre/ByGenre";
 import ByAuthor from "./components/Home/RecommendationContainer/ByAuthor/ByAuthor";
+import SearchContainer from "./components/SearchContainer/SearchContainer";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Searchbar />} />
+        <Route path="/search" element={<SearchContainer />} />
         <Route path="/favbooks" element={<FavoriteBooks />} />
         <Route path="/favauthors" element={<FavoriteAuthors />} />
         <Route path="/bygenre" element={<ByGenre />} />
