@@ -4,13 +4,13 @@ import * as AuthorTypes from "../types/authorType";
 import { RootState } from "../Store/rootReducer";
 interface TitleSearch {
   type: "title";
-  title: TitleTypes.Doc[];
+  title: TitleTypes.Doc;
 }
 interface AuthorSearch {
   type: "author";
-  author: AuthorTypes.Doc[];
+  author: AuthorTypes.Doc;
 }
-type SearchResult = TitleSearch | AuthorSearch;
+export type SearchResult = TitleSearch | AuthorSearch;
 
 interface SearchState {
   result: SearchResult[];
@@ -24,9 +24,9 @@ const searchSlice = createSlice({
   reducers: {
     setSearchResult(state, action: PayloadAction<SearchResult>) {
       if (action.payload.type === "title") {
-        state.result.push(action.payload as TitleSearch);
+        state.result = [action.payload];
       } else if (action.payload.type === "author") {
-        state.result.push(action.payload as AuthorSearch);
+        state.result = [action.payload];
       }
       console.log("My added data:", action.payload);
     },
