@@ -1,8 +1,13 @@
 import React from "react";
 import Searchbar from "../SearchBar/SearchBar";
+import RecommendationContainer from "./RecommendationContainer/RecommendationContainer";
 
 const Home = () => {
-  return <div>home </div>;
+  return (
+    <>
+      <RecommendationContainer />
+    </>
+  );
 };
 
 export default Home;
