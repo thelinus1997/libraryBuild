@@ -4,14 +4,16 @@ import { selectSearchResult } from "../../../Slices/searchSlice";
 import * as TitleTypes from "../../../types/titleType";
 import * as AuthorTypes from "../../../types/authorType";
 import { SearchResult } from "../../../Slices/searchSlice";
-interface SearchResultTypes {
+import { createNestedArray } from "../../../hooks/useNestedArray";
+import ResultCard from "./ResultCard/ResultCard";
+export interface SearchResultTypes {
   author?: [];
   title?: [];
 }
 const ResultContainer = () => {
   const [result, setResult] = useState<SearchResultTypes>();
-  const [authorResult, setAuthorResult] = useState([]);
-  const [titleResult, setTitleResult] = useState([]);
+  const [paginationArray, setPaginationArray] = useState<any>([[]]);
+  const [paginationTracker, setPaginationTracker] = useState(0);
   const searchData = useSelector(
     selectSearchResult
   ) as unknown as SearchResult[];
@@ -20,20 +22,43 @@ const ResultContainer = () => {
     const newArray: any = searchData[0];
     setResult(newArray);
   }, [searchData]);
+  useEffect(() => {
+    const returnArray = createNestedArray(result);
+    console.log(returnArray);
+    setPaginationArray(returnArray);
+  }, [result]);
 
+  const handlePageUp = () => {
+    if (paginationTracker === paginationArray.length) {
+      setPaginationTracker(0);
+    } else {
+      setPaginationTracker(paginationTracker + 1);
+    }
+  };
+  const handlePageDown = () => {
+    if (paginationTracker === 0) {
+      return;
+    } else {
+      setPaginationTracker(paginationTracker - 1);
+    }
+  };
   return (
     <div>
       <div>Hej</div>
-      <ul>
-        {result?.author &&
-          result.author.map((book: AuthorTypes.Doc, index) => (
-            <li key={index}>{book.title}</li>
-          ))}
-        {result?.title &&
-          result.title.map((book: TitleTypes.Doc, index) => (
-            <li key={index}>{book.title}</li>
-          ))}
+      <ul className="flex">
+        {paginationArray &&
+          paginationArray[paginationTracker].map(
+            (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
+              <li key={index} className="flex">
+                <ResultCard item={item} />
+              </li>
+            )
+          )}
       </ul>
+      <div>
+        <button onClick={handlePageDown}> {"<"} </button>
+        <button onClick={handlePageUp}> {">"} </button>
+      </div>
     </div>
   );
 };

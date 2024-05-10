@@ -13,7 +13,7 @@ export async function searchBookTitle(input: string) {
 }
 export async function searchAuthor(input: string) {
   try {
-    const response = await axios.get(`${authorUrl}=${input}&sort=new`);
+    const response = await axios.get(`${authorUrl}=${input}`);
     console.log(response.data);
     return response.data;
   } catch (e) {

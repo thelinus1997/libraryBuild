@@ -1,28 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Doc } from "../types/titleType";
+import { RootState } from "../Store/rootReducer";
 
 interface FavBooksState {
-  titles: string[];
+  books: Doc[];
 }
 const initialState: FavBooksState = {
-  titles: [],
+  books: [],
 };
 
 const favBooksSlice = createSlice({
   name: "favBooks",
   initialState,
   reducers: {
-    addFavoriteBook(state, action: PayloadAction<{ bookTitle: string }>) {
-      const { bookTitle } = action.payload;
-      if (!state.titles.includes(bookTitle)) {
-        state.titles.push(bookTitle);
-      }
+    addFavoriteBook(state, action: PayloadAction<{ book: any }>) {
+      const { book } = action.payload;
+      state.books.push(book);
     },
-    removeFavoriteBook(state, action: PayloadAction<{ bookTitle: string }>) {
-      const { bookTitle } = action.payload;
-      state.titles = state.titles.filter((title) => title !== bookTitle);
+    removeFavoriteBook(state, action: PayloadAction<{ book: any }>) {
+      const { book } = action.payload;
+      state.books = state.books.filter((title) => title !== book);
     },
   },
 });
 
 export const { addFavoriteBook, removeFavoriteBook } = favBooksSlice.actions;
+export const getFavoriteBooks = (state: RootState) => state.favBooks;
 export default favBooksSlice.reducer;

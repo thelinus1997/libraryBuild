@@ -9,7 +9,6 @@ const SearchBar = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    console.log(searchTerm);
   };
   const handleClick = async () => {
     await useSearch(searchTerm, searchType, dispatch);
@@ -17,9 +16,7 @@ const SearchBar = () => {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
   };
-  useEffect(() => {
-    console.log(searchType);
-  }, [searchType]);
+
   return (
     <>
       <h2 id="searchTitle">Search for a book by {searchType}:</h2>

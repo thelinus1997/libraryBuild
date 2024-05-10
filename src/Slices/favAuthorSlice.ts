@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../Store/rootReducer";
 
 interface FavAuthorsState {
   authors: string[];
@@ -16,6 +17,7 @@ const favAuthorsSlice = createSlice({
       const { authorName } = action.payload;
       if (!state.authors.includes(authorName)) {
         state.authors.push(authorName);
+        console.log("Hello!" + authorName);
       }
     },
     removeFavoriteAuthor(state, action: PayloadAction<{ authorName: string }>) {
@@ -27,4 +29,5 @@ const favAuthorsSlice = createSlice({
 
 export const { addFavoriteAuthor, removeFavoriteAuthor } =
   favAuthorsSlice.actions;
+export const getFavoriteAuthors = (state: RootState) => state.favAuthors;
 export default favAuthorsSlice.reducer;
