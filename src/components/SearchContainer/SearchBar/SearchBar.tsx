@@ -18,9 +18,11 @@ const SearchBar = () => {
   };
 
   return (
-    <>
-      <h2 id="searchTitle">Search for a book by {searchType}:</h2>
-      <div className="searchContainer flex">
+    <div className="flex items-center flex-col ">
+      <h2 className="text-white text-3xl my-5">
+        Search for a book by {searchType}:
+      </h2>
+      <div className="searchContainer flex ">
         <input
           className="border border-indigo-600 rounded"
           type="text"
@@ -29,13 +31,17 @@ const SearchBar = () => {
           value={searchTerm}
           onChange={handleChange}
         />
-        <select value={searchType} onChange={handleSelectChange}>
+        <select
+          className="mx-1 rounded"
+          value={searchType}
+          onChange={handleSelectChange}
+        >
           <option value="title">title</option>
           <option value="author">author</option>
         </select>
         <button onClick={handleClick}>search</button>
       </div>
-    </>
+    </div>
   );
 };
 

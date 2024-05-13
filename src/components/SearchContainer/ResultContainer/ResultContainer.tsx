@@ -44,7 +44,6 @@ const ResultContainer = () => {
   };
   return (
     <div>
-      <div>Hej</div>
       <div className="flex px-20 py-10">
         {paginationArray &&
           paginationArray[paginationTracker].map(
@@ -55,9 +54,15 @@ const ResultContainer = () => {
             )
           )}
       </div>
-      <div>
-        <button onClick={handlePageDown}> {"<"} </button>
-        <button onClick={handlePageUp}> {">"} </button>
+      <div className="flex justify-center">
+        <button className="px-10 mx-10" onClick={handlePageDown}>
+          {" "}
+          {"<"}{" "}
+        </button>
+        <button className="px-10 mx-10" onClick={handlePageUp}>
+          {" "}
+          {">"}{" "}
+        </button>
       </div>
     </div>
   );
