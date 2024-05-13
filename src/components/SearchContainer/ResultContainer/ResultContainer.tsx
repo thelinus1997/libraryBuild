@@ -29,7 +29,7 @@ const ResultContainer = () => {
   }, [result]);
 
   const handlePageUp = () => {
-    if (paginationTracker === paginationArray.length) {
+    if (paginationTracker === paginationArray.length - 1) {
       setPaginationTracker(0);
     } else {
       setPaginationTracker(paginationTracker + 1);
@@ -44,11 +44,11 @@ const ResultContainer = () => {
   };
   return (
     <div>
-      <div className="flex px-20 py-10">
+      <div className="flex px-20 py-10 w-full flex-wrap">
         {paginationArray &&
           paginationArray[paginationTracker].map(
             (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
-              <div key={index} className="flex px-10 w-75">
+              <div key={index} className="flex px-10 w-72 ">
                 <ResultCard item={item} inputType={"add"} />
               </div>
             )

@@ -15,6 +15,12 @@ export const createNestedArray = (input: any) => {
       }
 
       return newArray;
+    } else if (!input.title && !input.author) {
+      console.log("nesting for favorites");
+      for (let i = 0; i < input.length; i += newArraySize) {
+        newArray.push(input.slice(i, i + newArraySize));
+      }
+      return newArray;
     }
   }
 };

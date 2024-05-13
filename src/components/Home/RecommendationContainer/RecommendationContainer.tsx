@@ -17,14 +17,12 @@ const RecommendationContainer = () => {
   return (
     <div className="flex">
       <nav className="flex">
-        <ul>
-          <li className="inline-block mx-5">
-            <Link to="/bygenre">Recommendations by genre </Link>
-          </li>
-          <li className="inline-block">
-            <Link to="/byauthor"> Recommendations by author </Link>
-          </li>
-        </ul>
+        <div className="flex items-center">
+          <Link to="/byauthor">
+            {" "}
+            Recommendations based on your favorite authors{" "}
+          </Link>
+        </div>
       </nav>
     </div>
   );

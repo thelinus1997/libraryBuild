@@ -18,30 +18,42 @@ const ResultCard: React.FC<ResultCardProps> = ({ item, inputType }) => {
     console.log(inputType);
   });
   return (
-    <div className="border w-70 bg-white rounded-md">
+    <div
+      className="border w-full
+     bg-white rounded-md text-black"
+    >
       <div>
         <img
-          className="m-10"
+          className="m-4 w-10/12"
           src={`https://covers.openlibrary.org/b/id/${item.cover_i}-M.jpg`}
           alt={`${item.title}`}
         />
       </div>
-      <div>Book title: {item.title}</div>
-      <p>Published: {item.first_publish_year}</p>
-      <p>Author(s): {item.author_name}</p>
+      <div className="m-3">Book title: {item.title}</div>
+      <p className="m-3">Published: {item.first_publish_year}</p>
+      <p className="m-3">Author(s): {item.author_name}</p>
       {inputType === "add" && (
-        <div>
-          <button onClick={() => handleFavorite("book")}>
+        <div className="flex flex-col items-center">
+          <button
+            className="text-white my-2 "
+            onClick={() => handleFavorite("book")}
+          >
             Favorite this book
           </button>
-          <button onClick={() => handleFavorite("author")}>
+          <button
+            className="text-white"
+            onClick={() => handleFavorite("author")}
+          >
             Favorite this author
           </button>
         </div>
       )}
       {inputType === "remove" && (
-        <div>
-          <button onClick={() => handleFavorite("book")}>
+        <div className="flex flex-col items-center ">
+          <button
+            className="text-white "
+            onClick={() => handleFavorite("book")}
+          >
             Remove from favorites
           </button>
         </div>
