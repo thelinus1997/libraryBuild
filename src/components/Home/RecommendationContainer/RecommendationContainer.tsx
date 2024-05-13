@@ -18,10 +18,7 @@ const RecommendationContainer = () => {
     <div className="flex">
       <nav className="flex">
         <div className="flex items-center">
-          <Link to="/byauthor">
-            {" "}
-            Recommendations based on your favorite authors{" "}
-          </Link>
+          Recommendations based on your favorite authors
         </div>
       </nav>
     </div>
