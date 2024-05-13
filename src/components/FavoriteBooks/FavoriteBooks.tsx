@@ -24,7 +24,7 @@ const FavoriteBooks = () => {
         {favoriteBooks &&
           favoriteBooks.books.map((item, index) => (
             <div key={index} className="flex px-10 w-75">
-              <ResultCard item={item} />
+              <ResultCard item={item} inputType="remove" />
             </div>
           ))}
       </div>

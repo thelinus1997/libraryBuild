@@ -49,7 +49,7 @@ const ResultContainer = () => {
           paginationArray[paginationTracker].map(
             (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
               <div key={index} className="flex px-10 w-75">
-                <ResultCard item={item} />
+                <ResultCard item={item} inputType={"add"} />
               </div>
             )
           )}
