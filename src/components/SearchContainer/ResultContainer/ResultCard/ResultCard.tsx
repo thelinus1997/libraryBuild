@@ -14,9 +14,10 @@ const ResultCard: React.FC<ResultCardProps> = ({ item }) => {
   };
   const dispatch = useDispatch();
   return (
-    <div className="border w-60">
+    <div className="border w-70 bg-white rounded-md">
       <div>
         <img
+          className="m-10"
           src={`https://covers.openlibrary.org/b/id/${item.cover_i}-M.jpg`}
           alt={`${item.title}`}
         />

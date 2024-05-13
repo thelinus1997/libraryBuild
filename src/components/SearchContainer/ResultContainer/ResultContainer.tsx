@@ -45,16 +45,16 @@ const ResultContainer = () => {
   return (
     <div>
       <div>Hej</div>
-      <ul className="flex">
+      <div className="flex px-20 py-10">
         {paginationArray &&
           paginationArray[paginationTracker].map(
             (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
-              <li key={index} className="flex">
+              <div key={index} className="flex px-10 w-75">
                 <ResultCard item={item} />
-              </li>
+              </div>
             )
           )}
-      </ul>
+      </div>
       <div>
         <button onClick={handlePageDown}> {"<"} </button>
         <button onClick={handlePageUp}> {">"} </button>

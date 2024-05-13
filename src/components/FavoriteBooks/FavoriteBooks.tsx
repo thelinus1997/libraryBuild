@@ -20,12 +20,12 @@ const FavoriteBooks = () => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex px-20 py-10">
         {favoriteBooks &&
           favoriteBooks.books.map((item, index) => (
-            <li key={index} className="flex">
+            <div key={index} className="flex px-10 w-75">
               <ResultCard item={item} />
-            </li>
+            </div>
           ))}
       </div>
     </div>
