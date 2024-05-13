@@ -4,36 +4,59 @@ import { Doc } from "../../types/titleType";
 
 const SpecificBook = () => {
   const [book, setBook] = useState<Doc>();
+  const [score, setScore] = useState(1);
   let { state } = useLocation();
   useEffect(() => {
     setBook(state.value);
   }, [state]);
   console.log(state.value);
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setScore(parseInt(e.target.value));
+  };
   return (
-    <div className="flex justify-around my-10 ">
+    <div className="flex justify-center my-10 ">
       {book && (
-        <div className="flex flex-col border border-indigo-600 bg-white text-black items-center w-11/12 rounded">
-          <div className="flex flex-col w-full items-center">
-            <div className="flex m-3 ">
-              <h2 className="text-3xl">{book.title}</h2>
+        <div className="flex border border-indigo-600 bg-white text-black items-center w-11/12 rounded">
+          <div className="flex-col w-6/12 justify-center">
+            <h2 className="text-3xl text-center">{book.title}</h2>
+            <div className="w-full flex justify-center">
+              <img
+                className="m-4 w-2/12"
+                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                alt={`${book.title}`}
+              />
             </div>
-            <img
-              className="m-4 w-4/12"
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-              alt={`${book.title}`}
-            />
-            <div>
-              <p className="m-3">Published: {book.first_publish_year}</p>
-              <p className="m-3">Author(s): {book.author_name}</p>
-              <div className="m-3">
-                <p>{book.first_sentence && book.first_sentence[2]}</p>
-              </div>
+            <p className="m-3 text-center">
+              Published: {book.first_publish_year}
+            </p>
+            <p className="m-3 text-center">Author(s): {book.author_name}</p>
+            <p className="m-3 text-center">
+              {book.first_sentence && book.first_sentence[2]}
+            </p>
+          </div>
+          <div className="flex-col w-6/12 justify-center">
+            <p className="mx-3 text-center">
+              Number of people who have read this book:{" "}
+              {book.already_read_count}
+            </p>
+            <div className="mx-3 text-center">
+              Have you read this book? Leave a review!
             </div>
-            <div className="flex flex-row m-3">
-              <p>
-                Number of people who have read this book:{" "}
-                {book.already_read_count}
-              </p>
+            <div className="mx-3 text-center h-10">
+              <select
+                className="bg-white border border-indigo-600  h-full rounded p-2 mx-1"
+                value={score}
+                onChange={handleSelectChange}
+              >
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
+              <button className="bg-white border border-indigo-600 h-full rounded p-2">
+                Submit score
+              </button>
             </div>
           </div>
         </div>
