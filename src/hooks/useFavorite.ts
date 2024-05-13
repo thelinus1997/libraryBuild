@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
 import * as AuthorTypes from "../types/authorType";
 import * as TitleTypes from "../types/titleType";
-import { addFavoriteAuthor } from "../Slices/favAuthorSlice";
+import {
+  addFavoriteAuthor,
+  removeFavoriteAuthor,
+} from "../Slices/favAuthorSlice";
 import { addFavoriteBook, removeFavoriteBook } from "../Slices/favBookSlice";
 export const useFavorite = (
-  itemToFavorite: TitleTypes.Doc | AuthorTypes.Doc,
   favoriteType: string,
   dispatch: any,
-  inputType: string
+  inputType: string,
+  itemToFavorite: TitleTypes.Doc | AuthorTypes.Doc | string
 ) => {
   if (favoriteType === "book") {
     console.log("Favoriting a book");
@@ -21,16 +24,21 @@ export const useFavorite = (
     }
   } else if (favoriteType === "author") {
     console.log("Favoriting an author");
-    if (
-      itemToFavorite &&
-      itemToFavorite.author_name &&
-      itemToFavorite.author_name.length > 0
-    ) {
-      const favoriteAuthorName = itemToFavorite.author_name[0];
-      console.log(favoriteAuthorName);
-      dispatch(addFavoriteAuthor({ authorName: favoriteAuthorName }));
+    if (typeof itemToFavorite !== "string") {
+      if (
+        itemToFavorite &&
+        itemToFavorite.author_name &&
+        itemToFavorite.author_name.length > 0
+      ) {
+        if (inputType === "add") {
+          const favoriteAuthorName = itemToFavorite.author_name[0];
+          console.log(favoriteAuthorName);
+          dispatch(addFavoriteAuthor({ authorName: favoriteAuthorName }));
+        }
+      }
+    } else if (typeof itemToFavorite === "string") {
+      dispatch(removeFavoriteAuthor({ authorName: itemToFavorite }));
     }
-
     // dispatch(addFavoriteAuthor({ authorName: itemToFavorite.author_name }));
   }
 };

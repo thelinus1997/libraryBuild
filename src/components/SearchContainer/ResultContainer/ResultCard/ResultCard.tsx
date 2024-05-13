@@ -11,7 +11,7 @@ interface ResultCardProps {
 
 const ResultCard: React.FC<ResultCardProps> = ({ item, inputType }) => {
   const handleFavorite = (input: string) => {
-    useFavorite(item, input, dispatch, inputType);
+    useFavorite(input, dispatch, inputType, item);
   };
   const dispatch = useDispatch();
   useEffect(() => {
