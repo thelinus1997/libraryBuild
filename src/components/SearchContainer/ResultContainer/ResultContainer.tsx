@@ -6,22 +6,35 @@ import * as AuthorTypes from "../../../types/authorType";
 import { SearchResult } from "../../../Slices/searchSlice";
 import { createNestedArray } from "../../../hooks/useNestedArray";
 import ResultCard from "./ResultCard/ResultCard";
+import {
+  AuthorDataSearchState,
+  getAuthorDataSliceData,
+} from "../../../Slices/authorDataSlice";
 export interface SearchResultTypes {
   author?: [];
   title?: [];
 }
-const ResultContainer = () => {
+const ResultContainer = ({ choice }: { choice: string }) => {
   const [result, setResult] = useState<SearchResultTypes>();
   const [paginationArray, setPaginationArray] = useState<any>([[]]);
   const [paginationTracker, setPaginationTracker] = useState(0);
   const searchData = useSelector(
     selectSearchResult
   ) as unknown as SearchResult[];
+  const authorSearchData = useSelector(
+    getAuthorDataSliceData
+  ) as unknown as AuthorDataSearchState[];
 
   useEffect(() => {
-    const newArray: any = searchData[0];
-    setResult(newArray);
-  }, [searchData]);
+    if (choice === "books") {
+      const newArray: any = searchData[0];
+      setResult(newArray);
+    } else if (choice === "authors") {
+      const newArray: any = authorSearchData.result[0].author;
+      setResult(newArray);
+    }
+  }, [searchData, authorSearchData]);
+
   useEffect(() => {
     const returnArray = createNestedArray(result);
     console.log(returnArray);
