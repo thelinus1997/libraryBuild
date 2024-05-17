@@ -34,13 +34,13 @@ const ResultCard: React.FC<ResultCardProps> = ({ item, inputType }) => {
         {inputType === "add" && (
           <>
             <button
-              className="text-white my-2 w-full"
+              className="text-white w-full bg-indigo-600"
               onClick={() => handleFavorite("book")}
             >
               Favorite this book
             </button>
             <button
-              className="text-white w-full"
+              className="text-white w-full bg-indigo-600"
               onClick={() => handleFavorite("author")}
             >
               Favorite this author
@@ -49,13 +49,13 @@ const ResultCard: React.FC<ResultCardProps> = ({ item, inputType }) => {
         )}
         {inputType === "remove" && (
           <button
-            className="text-white my-2 w-full"
+            className="text-white w-full bg-indigo-600"
             onClick={() => handleFavorite("book")}
           >
             Remove from favorites
           </button>
         )}
-        <button className="text-white my-2 w-full">
+        <button className="text-white w-full bg-indigo-600">
           <Link
             className="text-white"
             to="/specificBook"

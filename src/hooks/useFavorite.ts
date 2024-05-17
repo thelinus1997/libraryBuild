@@ -36,8 +36,10 @@ export const useFavorite = (
           dispatch(addFavoriteAuthor({ authorName: favoriteAuthorName }));
         }
       }
-    } else if (typeof itemToFavorite === "string") {
+    } else if (typeof itemToFavorite === "string" && inputType === "remove") {
       dispatch(removeFavoriteAuthor({ authorName: itemToFavorite }));
+    } else if (typeof itemToFavorite === "string" && inputType === "add") {
+      dispatch(addFavoriteAuthor({ authorName: itemToFavorite }));
     }
   }
 };

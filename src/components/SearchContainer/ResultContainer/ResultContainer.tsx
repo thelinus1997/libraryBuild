@@ -6,10 +6,12 @@ import * as AuthorTypes from "../../../types/authorType";
 import { SearchResult } from "../../../Slices/searchSlice";
 import { createNestedArray } from "../../../hooks/useNestedArray";
 import ResultCard from "./ResultCard/ResultCard";
+import * as AuthorSpecificsTypes from "../../../types/authorDataType";
 import {
   AuthorDataSearchState,
   getAuthorDataSliceData,
 } from "../../../Slices/authorDataSlice";
+import { AuthorCard } from "./AuthorCard/AuthorCard";
 export interface SearchResultTypes {
   author?: [];
   title?: [];
@@ -30,7 +32,8 @@ const ResultContainer = ({ choice }: { choice: string }) => {
       const newArray: any = searchData[0];
       setResult(newArray);
     } else if (choice === "authors") {
-      const newArray: any = authorSearchData.result[0].author;
+      console.log(authorSearchData);
+      const newArray: any = authorSearchData.result[0];
       setResult(newArray);
     }
   }, [searchData, authorSearchData]);
@@ -57,12 +60,24 @@ const ResultContainer = ({ choice }: { choice: string }) => {
   };
   return (
     <div>
-      <div className="flex px-20 py-10 w-full flex-wrap">
-        {paginationArray &&
+      <div className="flex px-20 py-10 w-full flex-wrap justify-evenly">
+        {choice === "books" &&
+          paginationArray &&
           paginationArray[paginationTracker].map(
             (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
               <div key={index} className="flex px-10 w-72 ">
                 <ResultCard item={item} inputType={"add"} />
+              </div>
+            )
+          )}
+      </div>
+      <div className="flex flex-wrap w-full py-10 justify-evenly">
+        {choice === "authors" &&
+          paginationArray &&
+          paginationArray[paginationTracker].map(
+            (item: AuthorSpecificsTypes.Doc, index: number) => (
+              <div key={index} className="flex px-10 w-72 ">
+                <AuthorCard item={item} inputType={"add"} />
               </div>
             )
           )}
