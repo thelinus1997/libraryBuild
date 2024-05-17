@@ -10,6 +10,7 @@ import FavoriteAuthors from "./components/FavoriteAuthors/FavoriteAuthors";
 import ByGenre from "./components/Home/RecommendationContainer/ByGenre/ByGenre";
 import ByAuthor from "./components/Home/RecommendationContainer/ByAuthor/ByAuthor";
 import SearchContainer from "./components/SearchContainer/SearchContainer";
+import SpecificBook from "./components/SpecificBook/SpecificBook";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/favauthors" element={<FavoriteAuthors />} />
         <Route path="/bygenre" element={<ByGenre />} />
         <Route path="/byauthor" element={<ByAuthor />} />
+        <Route path="/specificBook" element={<SpecificBook />} />
       </Routes>
     </>
   );

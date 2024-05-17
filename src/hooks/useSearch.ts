@@ -1,4 +1,6 @@
+import { getAuthorData } from "../API/authorApi";
 import { searchAuthor, searchBookTitle } from "../API/libraryApi";
+import { setAuthorSearchResult } from "../Slices/authorDataSlice";
 import { setSearchResult } from "../Slices/searchSlice";
 
 export const useSearch = async (
@@ -14,5 +16,11 @@ export const useSearch = async (
   } else if (searchType === "author") {
     const response = await searchAuthor(fixedSearchTerm);
     dispatch(setSearchResult({ type: searchType, author: response.docs }));
+  } else if (searchType === "authors") {
+    const authorDataSearchTerm = searchTerm
+      .replace(/ /g, "+")
+      .replace(/\./g, "%20");
+    const response = await getAuthorData(authorDataSearchTerm);
+    dispatch(setAuthorSearchResult({ type: "author", author: response.docs }));
   }
 };
