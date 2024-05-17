@@ -12,6 +12,7 @@ const ResultContainer = () => {
   const [result, setResult] = useState<SearchResultTypes>();
   const [authorResult, setAuthorResult] = useState([]);
   const [titleResult, setTitleResult] = useState([]);
+
   const searchData = useSelector(
     selectSearchResult
   ) as unknown as SearchResult[];
