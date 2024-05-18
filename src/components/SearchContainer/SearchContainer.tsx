@@ -14,7 +14,7 @@ const SearchContainer = () => {
   return (
     <div>
       <nav>
-        <nav className="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full border border-indigo-600">
+        <nav className="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-1 px-6 bg-white shadow sm:items-baseline w-full border border-indigo-600">
           <div className="mb-2 sm:mb-0">
             <div className="text-2xl no-underline"></div>
           </div>

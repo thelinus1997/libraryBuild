@@ -11,7 +11,9 @@ interface SearchState {
   result: AuthorSearchType | TitleSearchTypes; // Define SearchResult as needed
 }
 
-interface FavAuthorsState {}
+interface FavAuthorsState {
+  authors: any;
+}
 
 interface FavBooksState {}
 interface AuthorDataSearchState {}

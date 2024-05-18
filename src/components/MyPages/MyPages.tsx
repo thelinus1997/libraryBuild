@@ -14,6 +14,7 @@ const MyPages = () => {
   const [averageScore, setAverageScore] = useState<number>();
   const [totalPages, setTotalPages] = useState<number>();
   const myReviews = useSelector(getReviews);
+
   useEffect(() => {
     const tempArray: any = myReviews;
     setLatestReview(tempArray[tempArray.length - 1]);
@@ -33,7 +34,7 @@ const MyPages = () => {
   }, [myReviews]);
 
   return (
-    <div className="w-full flex flex-wrap justify-center py-5">
+    <div className="w-full flex flex-wrap justify-center py-5 text-black">
       <div className="w-11/12 flex bg-white rounded border text-center flex-col">
         <h2 className="text-3xl font-bold tracking-wider py-5">My page</h2>
         <div className="flex flex-row py-10 px-5 justify-evenly">

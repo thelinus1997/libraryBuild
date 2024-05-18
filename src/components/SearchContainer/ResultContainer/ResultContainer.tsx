@@ -12,10 +12,13 @@ import {
   getAuthorDataSliceData,
 } from "../../../Slices/authorDataSlice";
 import { AuthorCard } from "./AuthorCard/AuthorCard";
+import PaginationButton from "../../PaginationButton/PaginationButton";
+
 export interface SearchResultTypes {
   author?: [];
   title?: [];
 }
+
 const ResultContainer = ({ choice }: { choice: string }) => {
   const [result, setResult] = useState<SearchResultTypes>();
   const [paginationArray, setPaginationArray] = useState<any>([[]]);
@@ -32,16 +35,16 @@ const ResultContainer = ({ choice }: { choice: string }) => {
       const newArray: any = searchData[0];
       setResult(newArray);
     } else if (choice === "authors") {
-      console.log(authorSearchData);
       const newArray: any = authorSearchData.result[0];
       setResult(newArray);
     }
   }, [searchData, authorSearchData]);
 
   useEffect(() => {
-    const returnArray = createNestedArray(result);
-    console.log(returnArray);
-    setPaginationArray(returnArray);
+    if (result) {
+      const returnArray = createNestedArray(result);
+      setPaginationArray(returnArray);
+    }
   }, [result]);
 
   const handlePageUp = () => {
@@ -51,6 +54,7 @@ const ResultContainer = ({ choice }: { choice: string }) => {
       setPaginationTracker(paginationTracker + 1);
     }
   };
+
   const handlePageDown = () => {
     if (paginationTracker === 0) {
       return;
@@ -58,39 +62,35 @@ const ResultContainer = ({ choice }: { choice: string }) => {
       setPaginationTracker(paginationTracker - 1);
     }
   };
+
   return (
     <div>
-      <div className="flex px-20 py-10 w-full flex-wrap justify-evenly">
-        {choice === "books" &&
-          paginationArray &&
-          paginationArray[paginationTracker].map(
+      {choice === "books" && paginationArray[paginationTracker]?.length > 0 && (
+        <div className="flex w-full flex-wrap justify-evenly">
+          {paginationArray[paginationTracker].map(
             (item: AuthorTypes.Doc | TitleTypes.Doc, index: number) => (
-              <div key={index} className="flex px-10 w-72 ">
+              <div key={index} className="flex px-5 w-72 ">
                 <ResultCard item={item} inputType={"add"} />
               </div>
             )
           )}
-      </div>
-      <div className="flex flex-wrap w-full py-10 justify-evenly">
-        {choice === "authors" &&
-          paginationArray &&
-          paginationArray[paginationTracker].map(
-            (item: AuthorSpecificsTypes.Doc, index: number) => (
-              <div key={index} className="flex px-10 w-72 ">
-                <AuthorCard item={item} inputType={"add"} />
-              </div>
-            )
-          )}
-      </div>
+        </div>
+      )}
+      {choice === "authors" &&
+        paginationArray[paginationTracker]?.length > 0 && (
+          <div className="flex flex-wrap w-full justify-evenly">
+            {paginationArray[paginationTracker].map(
+              (item: AuthorSpecificsTypes.Doc, index: number) => (
+                <div key={index} className="flex px-5 w-72 ">
+                  <AuthorCard item={item} inputType={"add"} />
+                </div>
+              )
+            )}
+          </div>
+        )}
       <div className="flex justify-center">
-        <button className="px-10 mx-10" onClick={handlePageDown}>
-          {" "}
-          {"<"}{" "}
-        </button>
-        <button className="px-10 mx-10" onClick={handlePageUp}>
-          {" "}
-          {">"}{" "}
-        </button>
+        <PaginationButton onClick={handlePageDown}> {"<"} </PaginationButton>
+        <PaginationButton onClick={handlePageUp}> {">"} </PaginationButton>
       </div>
     </div>
   );

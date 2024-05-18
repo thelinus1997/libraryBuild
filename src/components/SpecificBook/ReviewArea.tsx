@@ -3,6 +3,7 @@ import * as TitleTypes from "../../types/titleType";
 import * as AuthorTypes from "../../types/authorType";
 import { useDispatch } from "react-redux";
 import { useReview } from "../../hooks/useReview";
+import Notification from "../Notification/Notification";
 interface ReviewAreaProps {
   book: TitleTypes.Doc | AuthorTypes.Doc;
 }
@@ -10,6 +11,8 @@ const ReviewArea: React.FC<ReviewAreaProps> = ({ book }) => {
   const [score, setScore] = useState(1);
   const [pagesRead, setPagesRead] = useState(0);
   const [review, setReview] = useState("");
+  const [notificationVisible, setNotificationVisible] = useState(false);
+  const [notificationText, setNotificationText] = useState("");
   const dispatch = useDispatch();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,6 +34,11 @@ const ReviewArea: React.FC<ReviewAreaProps> = ({ book }) => {
     if (pagesRead !== 0) {
       if (book) {
         useReview(book.title, score, pagesRead, review, dispatch);
+        setNotificationText(`Review added!`);
+        setNotificationVisible(true);
+        setTimeout(() => {
+          setNotificationVisible(false);
+        }, 3000);
       }
     }
   };
@@ -38,6 +46,7 @@ const ReviewArea: React.FC<ReviewAreaProps> = ({ book }) => {
   return (
     <>
       <p className="mx-3 text-center">
+        <Notification visible={notificationVisible} text={notificationText} />
         Number of people who have read this book: {book.already_read_count}
       </p>
       <div className="mx-3 text-center">

@@ -31,8 +31,8 @@ const SearchBar = ({ choice }: { choice: string }) => {
   });
 
   return (
-    <div className="flex items-center flex-col ">
-      <h2 className="text-white text-3xl my-5">
+    <div className="flex items-center flex-col py-2 my-2">
+      <h2 className="text-white text-3xl ">
         Search for {choice} by {searchType}:
       </h2>
       <div className="searchContainer flex ">
