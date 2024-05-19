@@ -17,9 +17,17 @@ import PaginationButton from "../../PaginationButton/PaginationButton";
 export interface SearchResultTypes {
   author?: [];
   title?: [];
+  reccomendations?: [];
+}
+interface ResultContainerProps {
+  choice: string;
+  recommendations?: any[];
 }
 
-const ResultContainer = ({ choice }: { choice: string }) => {
+const ResultContainer: React.FC<ResultContainerProps> = ({
+  choice,
+  recommendations,
+}) => {
   const [result, setResult] = useState<SearchResultTypes>();
   const [paginationArray, setPaginationArray] = useState<any>([[]]);
   const [paginationTracker, setPaginationTracker] = useState(0);
@@ -31,14 +39,17 @@ const ResultContainer = ({ choice }: { choice: string }) => {
   ) as unknown as AuthorDataSearchState[];
 
   useEffect(() => {
-    if (choice === "books") {
+    if (recommendations && recommendations.length > 0) {
+      console.log("setting recommendations");
+      setPaginationArray(recommendations);
+    } else if (choice === "books" && recommendations === undefined) {
       const newArray: any = searchData[0];
       setResult(newArray);
-    } else if (choice === "authors") {
+    } else if (choice === "authors" && recommendations === undefined) {
       const newArray: any = authorSearchData.result[0];
       setResult(newArray);
     }
-  }, [searchData, authorSearchData]);
+  }, [searchData, authorSearchData, choice, recommendations]);
 
   useEffect(() => {
     if (result) {

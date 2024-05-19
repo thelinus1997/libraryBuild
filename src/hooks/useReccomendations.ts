@@ -1,31 +1,17 @@
-import { useDispatch } from "react-redux";
-import { useSearch } from "./useSearch";
-import { useEffect, useState } from "react";
+import { searchAuthor } from "../API/libraryApi";
 import { createNestedArray } from "./useNestedArray";
 
-export const getRecommendations = async (favAuthorArray: string[]) => {
-  const [recommendations, setRecommendations] = useState<any>([]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      if (favAuthorArray.length > 0) {
-        const allRecommendations: any[] = [];
-        for (let i = 0; i < favAuthorArray.length; i++) {
-          const response = await useSearch(
-            favAuthorArray[i],
-            "author",
-            dispatch
-          );
-        }
-        setRecommendations(allRecommendations);
-      }
-    };
-
-    fetchRecommendations();
-  }, [favAuthorArray, dispatch]);
-
-  useEffect(() => {
-    const nestedArray = createNestedArray(recommendations);
-  }, [favAuthorArray]);
+export const useRecommendations = async (favAuthorArray: string[]) => {
+  const returnArray: any[] = [];
+  for (let i = 0; i < favAuthorArray.length; i++) {
+    const response = await searchAuthor(favAuthorArray[i]);
+    const nestedArray = createNestedArray(response.docs);
+    if (nestedArray) {
+      returnArray.push(
+        nestedArray[Math.floor(Math.random() * nestedArray.length)]
+      );
+    }
+  }
+  console.log(returnArray);
+  return returnArray;
 };
